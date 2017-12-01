@@ -121,10 +121,8 @@ void InOutput::DiscardRepeatedElements(vector<int> & atomicnumbers){
 		while(j < atomicnumbers.size()){
 			if(atomicnumbers[i] == atomicnumbers[j]){
 				atomicnumbers.erase(atomicnumbers.begin()+j);
-
 				j -= 1;
-				cout << j << endl;}
-
+			}
 			j++;
 		}
 		i++;
