@@ -26,9 +26,13 @@ class InOutput{
 		bool GetValuesFromInputFile(string,vector<int>&);
 	/***************************************************************************************/ 
 	private:
+	// Variables
+		bool open_without_problems = true;
+	/***************************************************************************************/ 
 		void DiscardComments(ifstream &);
 		int GetPeriodicity(ifstream &);
 		vector<int> GetAtomicNumbers(ifstream &, int);
+		void DiscardRepeatedElements(vector<int> &);
 	/***************************************************************************************/ 
 	/***************************************************************************************/ 
 	protected:

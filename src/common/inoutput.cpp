@@ -20,7 +20,6 @@ InOutput::InOutput(){
 }
 /***************************************************************************************/ 
 bool InOutput::GetValuesFromInputFile(string ifilename,vector<int>& atomicnumbers){
-	bool open_without_problems = true;
 	ifstream CrystalInputFile;
 
    CrystalInputFile.open(ifilename.c_str(),ios::in);
@@ -32,7 +31,17 @@ bool InOutput::GetValuesFromInputFile(string ifilename,vector<int>& atomicnumber
 
 	DiscardComments(CrystalInputFile);
 	int periodicity = GetPeriodicity(CrystalInputFile);
-	atomicnumbers = GetAtomicNumbers(CrystalInputFile,periodicity);
+	if(periodicity > -1){
+		atomicnumbers = GetAtomicNumbers(CrystalInputFile,periodicity);
+		DiscardRepeatedElements(atomicnumbers);
+	}else{
+		cout << " Periodicity dont recognize " << endl ;
+		cout << " Must be: MOLECULAR" << endl;
+		cout << "          POLYMER" << endl;
+		cout << "          SLAB" << endl;
+		cout << "          CRYSTAL" << endl;
+		open_without_problems = false;
+	}
 
    CrystalInputFile.close();
 	return open_without_problems;
@@ -79,14 +88,47 @@ vector<int> InOutput::GetAtomicNumbers(ifstream &ifil,int periodicity){
 		for(int i=0;i<3;i++){
 			getline(ifil,line); // skip lines
 		}
-		ifil >> Natoms; 
-		atomicnumbers.resize(Natoms,0);
-		for(int i=0;i<Natoms;i++){
-			ifil >> atomicnumbers[i];
-			getline(ifil,line);
+	}
+	if (periodicity == 1 || periodicity == 2){
+		for(int i=0;i<4;i++){
+			getline(ifil,line); // skip lines
+		}
+	}
+	if (periodicity == 3){
+		for(int i=0;i<5;i++){
+			getline(ifil,line); // skip lines
+		}
+	}
+	ifil >> Natoms; 
+	atomicnumbers.resize(Natoms,0);
+	for(int i=0;i<Natoms;i++){
+		ifil >> atomicnumbers[i];
+		getline(ifil,line);
+		if(ifil.fail()){
+			atomicnumbers[i] = -1;
+			open_without_problems = false;
+			cout << " Insufficient atoms in the list " << endl;
 		}
 	}
 	return atomicnumbers;
+}
+/***************************************************************************************/ 
+void InOutput::DiscardRepeatedElements(vector<int> & atomicnumbers){
+
+	int i=0,j=0;
+	while(i < atomicnumbers.size()){
+		j = i+1;
+		while(j < atomicnumbers.size()){
+			if(atomicnumbers[i] == atomicnumbers[j]){
+				atomicnumbers.erase(atomicnumbers.begin()+j);
+
+				j -= 1;
+				cout << j << endl;}
+
+			j++;
+		}
+		i++;
+	}
 }
 /***************************************************************************************/ 
 #endif // _INOUTPUT_CPP_
