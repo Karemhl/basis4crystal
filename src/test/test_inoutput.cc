@@ -22,10 +22,12 @@ int main (int argc, char *argv[])
 
 	bool all_fine = inout.GetValuesFromInputFile(filename,atomicnumbers);
 
-	cout << "All is right ? " << (all_fine ? "Yes":"No") << endl;
-	cout << "Number of atoms = " << atomicnumbers.size() << endl;
-	for(unsigned int i=0;i<atomicnumbers.size();i++) 
-		cout << "Atomic number = " << atomicnumbers[i] << endl;
+	cout << " All data is right ? " << (all_fine ? "Yes":"No") << endl;
+	if(all_fine){
+		cout << " Number of atoms = " << atomicnumbers.size() << endl;
+		for(unsigned int i=0;i<atomicnumbers.size();i++) 
+			cout << " Atomic number = " << atomicnumbers[i] << endl;
+	}
 
 	return EXIT_SUCCESS;
 }
