@@ -13,11 +13,11 @@ using std::vector;
 #include <string>
 using std::string;
 /***************************************************************************************/ 
-#include "readWriteFiles.h"
+#include "readwritefiles.h"
 /***************************************************************************************/  
 
 ReadWriteFiles::ReadWriteFiles(){
-	atomsStringData.clear();
+	atoms_string_data_.clear();
 }
 /***************************************************************************************/ 
 bool ReadWriteFiles::ReadFile(string infilename){
@@ -32,11 +32,11 @@ bool ReadWriteFiles::ReadFile(string infilename){
 
    
    while( FindAtom(GaussianBasisInputFile) ){
-      atomsStringData.push_back( GetAtomStringData(GaussianBasisInputFile));
+      atoms_string_data_.push_back( GetAtomStringData(GaussianBasisInputFile));
    }
 
 	GaussianBasisInputFile.close();
-	return open_without_problems;
+	return open_without_problems_;
 }
 /***************************************************************************************/  
 void ReadWriteFiles::DiscardInitialComments(ifstream &ifil){

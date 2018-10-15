@@ -7,7 +7,7 @@ using std::cerr;
 using std::string;
 #include <vector>
 using std::vector;
-#include "readWriteFiles.h"
+#include "readwritefiles.h"
 
 int main (int argc, char *argv[])
 {
@@ -22,8 +22,8 @@ int main (int argc, char *argv[])
 
 	bool all_fine = readWriteFiles.ReadFile(inputfilename);
    if (all_fine){
-      for(int i=0;i<readWriteFiles.atomsStringData.size();i++){
-      cout << "Atom "<<i<<endl<< readWriteFiles.atomsStringData[i]<<endl;
+      for(int i=0;i<readWriteFiles.atoms_string_data_.size();i++){
+      cout << "Atom "<<i<<endl<< readWriteFiles.atoms_string_data_[i]<<endl;
       }
    }
 

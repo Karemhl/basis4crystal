@@ -23,7 +23,7 @@ class ReadWriteFiles{
 	public:
 		ReadWriteFiles();
 	// Variables
-		vector<string> atomsStringData;
+		vector<string> atoms_string_data_;
 	/***************************************************************************************/ 
 	// Methods
 		bool ReadFile(string);
@@ -32,7 +32,7 @@ class ReadWriteFiles{
 	/***************************************************************************************/ 
 	private:
 	// Variables
-		bool open_without_problems = true;
+		bool open_without_problems_ = true;
 	/***************************************************************************************/ 
 	// Methods
       void DiscardInitialComments(ifstream &);
