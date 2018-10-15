@@ -17,7 +17,7 @@ using std::string;
 /***************************************************************************************/  
 
 ReadWriteFiles::ReadWriteFiles(){
-	atomData.clear();
+	atomsStringData.clear();
 }
 /***************************************************************************************/ 
 bool ReadWriteFiles::ReadFile(string infilename){
@@ -30,15 +30,16 @@ bool ReadWriteFiles::ReadFile(string infilename){
       return false;
    }
 
-	DiscardComments(GaussianBasisInputFile);
-
-	cout << GaussianBasisInputFile.rdbuf();
+   
+   while( FindAtom(GaussianBasisInputFile) ){
+      atomsStringData.push_back( GetAtomStringData(GaussianBasisInputFile));
+   }
 
 	GaussianBasisInputFile.close();
 	return open_without_problems;
 }
 /***************************************************************************************/  
-void ReadWriteFiles::DiscardComments(ifstream &ifil){
+void ReadWriteFiles::DiscardInitialComments(ifstream &ifil){
    string tl; 
    int prevpos;
    bool procnext=true;
@@ -55,6 +56,41 @@ void ReadWriteFiles::DiscardComments(ifstream &ifil){
          ifil.seekg(prevpos);
       }   
    }   
+}
+/***************************************************************************************/ 
+bool ReadWriteFiles::FindAtom(ifstream &ifil){
+   string line;
+   bool findatom = false;
+   bool endchunk = false;
+   int prevpos;
+   while(!ifil.eof()){
+      getline(ifil,line);
+      if(line.substr(0,4) == "****"){
+         if (endchunk){
+            ifil.seekg(prevpos);
+            return findatom=true;
+         }
+         endchunk = true; 
+         prevpos = ifil.tellg();
+      }
+   }
+
+   return findatom;
+}
+/***************************************************************************************/ 
+string ReadWriteFiles::GetAtomStringData(ifstream &ifil){
+   int prevpos;
+   string atomdata;
+   string line;
+   getline(ifil,line);
+   while(line.substr(0,4) != "****"){
+      prevpos=ifil.tellg();
+      atomdata += line + '\n';
+      getline(ifil,line);
+   }
+   ifil.seekg(prevpos);
+
+   return atomdata;
 }
 /***************************************************************************************/ 
 /***************************************************************************************/ 
