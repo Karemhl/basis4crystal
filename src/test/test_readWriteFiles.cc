@@ -22,9 +22,15 @@ int main (int argc, char *argv[])
 
 	bool all_fine = readWriteFiles.ReadFile(inputfilename);
    if (all_fine){
-      for(int i=0;i<readWriteFiles.atoms_string_data_.size();i++){
-      cout << "Atom "<<i<<endl<< readWriteFiles.atoms_string_data_[i]<<endl;
+		
+		vector<string> atom_string_Gaussian = readWriteFiles.atoms_string_data_;
+      
+		for(int i=0;i<atom_string_Gaussian.size();i++){
+      	cout << "Atom "<<i<<endl<< atom_string_Gaussian[i]<<endl;
       }
+
+		vector<string> atom_string_Crystal = atom_string_Gaussian;
+		bool output_fine = readWriteFiles.PrintAndSaveOutput(atom_string_Gaussian,outputfilename);
    }
 
 	return EXIT_SUCCESS;

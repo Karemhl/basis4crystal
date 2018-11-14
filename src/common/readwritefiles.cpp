@@ -92,6 +92,29 @@ string ReadWriteFiles::GetAtomStringData(ifstream &ifil){
 
    return atomdata;
 }
+/***************************************************************************************/  
+bool ReadWriteFiles::PrintAndSaveOutput(vector<string> output_crystal_, string CrystalBasisOutputFileName){
+   
+	ofstream CrystalBasisOutputFile(CrystalBasisOutputFileName.c_str());
+
+   if ( !CrystalBasisOutputFile.good() ) {
+      cout << "Error while opening the file " << CrystalBasisOutputFileName << endl;
+      cout << __FILE__ << ", line: " << __LINE__ << endl;
+      CrystalBasisOutputFile.close();
+      return false;
+   }
+	for (int i=0;i<output_crystal_.size();i++)
+   	CrystalBasisOutputFile << output_crystal_[i]<<endl;
+
+	CrystalBasisOutputFile.close();
+
+	cout << "Transale the Basis Set from Gaussan format to Crystal format" << endl;
+	for (int i=0;i<output_crystal_.size();i++)
+   	cout << output_crystal_[i] << endl;
+
+   return true;
+
+}
 /***************************************************************************************/ 
 /***************************************************************************************/ 
 #endif // _READWRITEFILES_CPP_
