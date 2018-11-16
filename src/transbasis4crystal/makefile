@@ -24,7 +24,7 @@ endif
 
 # COMPILERS OPTIONS
 ifneq ($(DARWIN),)
-  CXX          := g++-mp-4.9
+  CXX          := g++
 else
   CXX          := g++
 endif
@@ -41,8 +41,6 @@ ifeq ($(DEBUGVERSION),1)
 else
   CXXFLAGS     += -DDEBUG=0 -Wall -pedantic $(OPTIMFLAGS)
 endif
-
-INCDEFS        :=  -include localdefs.h
 
 # FILES
 CPPOBJS=$(patsubst %.cpp,%.o,$(wildcard *.cpp))
