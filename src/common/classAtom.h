@@ -15,7 +15,6 @@ public:
 // Methods (declaration)
    void ReadAtomGaussString(std::string);
    std::string PrintAtomCrystString();
-// Funtion to check the object
    void PrintObjectVariables();
 
 private:
@@ -25,7 +24,6 @@ private:
    int charge_;
    int gauss_parameter_{0};
    std::vector<std::string> orbital_type_;
-   std::vector<int> num_orbital_type_;
    std::vector<int> num_gauss_;
    double cryst_contrac_factor_{1.0};
    std::vector<std::vector<double>> alpha_exp_;
@@ -33,11 +31,10 @@ private:
    std::vector<std::vector<double>> coefs_sp_num_;
    int num_shells_; 
    std::vector<double> occ_numbers_;
-// Methods 
+// Methods (declaration)
    int NameToAtomicNumber(std::string);
    int TypeOrbitalToNumber(std::string);
-   std::vector<double> OccupationNumberAssign(std::vector<std::string>, int);
-
+   std::vector<double> OccupationNumberAssign();
 };
 //---------------------------------------------------------//
 #endif // _ATOM_H_

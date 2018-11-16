@@ -102,7 +102,7 @@ void Atom::ReadAtomGaussString(std::string gauss_string_){
 //   for(unsigned long i=0; i< orbital_type_.size(); i++){
 //   num_orbital_type_[i]= TypeOrbitalToNumber(orbital_type_[i]);
 //  }
-//   occ_numbers_= OccupationNumberAssign(orbital_type_,atomic_number_);
+   occ_numbers_= OccupationNumberAssign();
 //   num_gauss_=num_gauss;
 //   alpha_exp_=alpha_exp;
 //   coefs_num_=coefs_num;
@@ -277,15 +277,13 @@ int Atom::TypeOrbitalToNumber(std::string shellType){
 //---------------------------------------------------------//
 // Definition
 //---------------------------------------------------------//
-std::vector<double> Atom::OccupationNumberAssign(std::vector<std::string> orbital_type, int atomic_number_){
+std::vector<double> Atom::OccupationNumberAssign(){
    
-
-   std::vector<std::string> orbital_type_=orbital_type;
-//   std::vector<double> occ_numbers(orbital_type_.size());
-   double n_elect=(double)atomic_number_;
+   std::vector<double> occ_numbers;
+//   double n_elect=(double)atomic_number_;
 
    for(unsigned long i=0; i < orbital_type_.size(); i++){
-     occ_numbers_.push_back(0.0);
+     occ_numbers.push_back(0.0);
    }
 /*   for(unsigned long i=0; i < orb_type.size(); i++){
     if(orb_type[i]=="S"){
@@ -340,7 +338,7 @@ std::vector<double> Atom::OccupationNumberAssign(std::vector<std::string> orbita
     }
     }*/
 //   occ_numbers_=occ_numbers;
-   return occ_numbers_;
+   return occ_numbers;
 }
 
 //---------------------------------------------------------//
@@ -353,23 +351,23 @@ std::vector<double> Atom::OccupationNumberAssign(std::vector<std::string> orbita
 // Definition
 //---------------------------------------------------------//
 std::string Atom::PrintAtomCrystString(){
-// Crystal format stringstream
-   std::string crystal_string_;
+   std::string crystal_string;
    std::ostringstream crystal_format;
    crystal_format << atomic_number_ << " "
-             << orbital_type_.size() << std::endl;
+             << num_shells_ << std::endl;
 
    for(unsigned long i=0; i < orbital_type_.size(); i++){
-    crystal_format << "0" << " " << "cosa"
+    crystal_format << "0" << " " << TypeOrbitalToNumber(orbital_type_[i])
                    << " " << num_gauss_[i]
                    << " " << occ_numbers_[i]
-                   << " " << cryst_contrac_factor_ << std::endl;
+                   << " " << "1.0" << std::endl;
     if(orbital_type_[i]=="SP"){
 
      for(int j=0; j < num_gauss_[i]; j++){
-      crystal_format  << "    " << alpha_exp_[i][j]
-                      << " "    << coefs_num_[i][j]
-                      << " "    << coefs_sp_num_[i][j] << std::endl;
+      crystal_format << std::fixed << std::setprecision(7) 
+                     << "    " << alpha_exp_[i][j]
+                     << " "    << coefs_num_[i][j]
+                     << " "    << coefs_sp_num_[i][j] << std::endl;
      }
     }
     else{
@@ -380,8 +378,8 @@ std::string Atom::PrintAtomCrystString(){
      }
     }
    }
-   crystal_string_=crystal_format.str();
-   return crystal_string_;
+   crystal_string=crystal_format.str();
+   return crystal_string;
 }
 
 void Atom::PrintObjectVariables(){
@@ -392,8 +390,34 @@ void Atom::PrintObjectVariables(){
             << num_shells_ << "\n"
             << alpha_exp_.size() << " " << coefs_num_.size() << "\n"
             << coefs_sp_num_.size() << " " << num_shells_ << std::endl;
-   std::cout  << "The vectors cointains: " << std::endl;
-     std::cout << alpha_exp_[0][0] << std::endl;
+  std::cout  << "The vectors cointains: " << std::endl;
+  
+  for(unsigned long s=0; s < occ_numbers_.size(); s++){
+  std::cout << occ_numbers_[s] << std::endl;
+  }
+
+  for(unsigned long s=0; s < orbital_type_.size(); s++){
+  std::cout << orbital_type_[s] << std::endl;
+  }
+  std::cout << "Alpha exp are " << std::endl;
+   for(unsigned long i=0 ; i < alpha_exp_.size(); i++){
+     for(unsigned long j=0; j < alpha_exp_[i].size(); j++){   
+    std::cout <<  std::fixed << std::setprecision(7) << alpha_exp_[i][j] << std::endl;
+     }
+   }
+  std::cout << "Coefs are " << std::endl;
+   for(unsigned long i=0 ; i < coefs_num_.size(); i++){     
+      for(unsigned long j=0; j < coefs_num_[i].size(); j++){
+       std::cout << coefs_num_[i][j] << std::endl;
+      }
+   }    
+  std::cout << "and the coefs for P orbitals are " << std::endl;
+   for(unsigned long i=0 ; i < coefs_sp_num_.size(); i++){
+      for(unsigned long j=0; j < coefs_sp_num_[i].size(); j++){
+       std::cout << coefs_sp_num_[i][j] << std::endl;
+      }         
+   }
+
 }
 //---------------------------------------------------------//
 //---------------------------------------------------------//
