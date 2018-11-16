@@ -104,13 +104,13 @@ bool ReadWriteFiles::PrintAndSaveOutput(vector<string> output_crystal_, string C
       return false;
    }
 	for (int i=0;i<output_crystal_.size();i++)
-   	CrystalBasisOutputFile << output_crystal_[i]<<endl;
+   	CrystalBasisOutputFile << output_crystal_[i];
 
 	CrystalBasisOutputFile.close();
 
 	cout << "Transale the Basis Set from Gaussan format to Crystal format" << endl;
 	for (int i=0;i<output_crystal_.size();i++)
-   	cout << output_crystal_[i] << endl;
+   	cout << output_crystal_[i];
 
    return true;
 
