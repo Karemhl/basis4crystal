@@ -6,6 +6,8 @@
 #ifndef _CLASSATOM_CPP_
 #define _CLASSATOM_CPP_
 #include <fstream>
+#include <iostream>
+#include <iomanip>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -26,22 +28,22 @@
 void Atom::ReadAtomGaussString(std::string gauss_string_){
 // Variables to read
   std::string gauss_string=gauss_string_;
-  std::string symbol;
-  int charge;
-  std::vector<std::string> orbital_type;
-  std::vector<int> num_gauss;
-  std::vector<std::vector<double>> alpha_exp;
-  std::vector<std::vector<double>> coefs_num;
-  std::vector<std::vector<double>> coefs_sp_num;
+//  std::string symbol;
+//  int charge;
+//  std::vector<std::string> orbital_type;
+//  std::vector<int> num_gauss;
+//  std::vector<std::vector<double>> alpha_exp;
+//  std::vector<std::vector<double>> coefs_num;
+//  std::vector<std::vector<double>> coefs_sp_num;
 //  std::vector<double> occ_numbers_v;
 
 //---------------------------------------------------------//
    std::istringstream gauss_format(gauss_string);
 //   gauss_format.ignore(4,'\n');
 //---------------------------------------------------------//
-   gauss_format.seekg(0, gauss_format.cur) >> symbol;
+   gauss_format.seekg(0, gauss_format.cur) >> atomic_symbol_;
 //---------------------------------------------------------//
-   gauss_format.seekg(1, gauss_format.cur) >> charge;
+   gauss_format.seekg(1, gauss_format.cur) >> charge_;
 //---------------------------------------------------------//
    std::string lines;
    std::getline(gauss_format, lines);
@@ -53,8 +55,8 @@ void Atom::ReadAtomGaussString(std::string gauss_string_){
     std::istringstream line1(lines);
 //---------------------------------------------------------//
     line1 >> orb_t_actual >> gauss_n_actual;
-    orbital_type.push_back(orb_t_actual);
-    num_gauss.push_back(gauss_n_actual);
+    orbital_type_.push_back(orb_t_actual);
+    num_gauss_.push_back(gauss_n_actual);
 //---------------------------------------------------------//
     std::vector<double> alpha_actual_shell;
     std::vector<double> coefs_actual_shell;
@@ -71,14 +73,14 @@ void Atom::ReadAtomGaussString(std::string gauss_string_){
        coefs_actual_shell.push_back(coeff_actual);
        coefs_sp_actual_shell.push_back(coeff_sp_actual);
      }
-     alpha_exp.push_back(alpha_actual_shell);
-     coefs_num.push_back(coefs_actual_shell);
-     coefs_sp_num.push_back(coefs_sp_actual_shell);
+     alpha_exp_.push_back(alpha_actual_shell);
+     coefs_num_.push_back(coefs_actual_shell);
+     coefs_sp_num_.push_back(coefs_sp_actual_shell);
    }
    else{
 
    for(int i = 0; i < gauss_n_actual; i++){
-   std::string num_lines;
+       std::string num_lines;
        std::getline(gauss_format,num_lines);
        std::istringstream numbers(num_lines);
        numbers >> expAlpha_actual >> coeff_actual;
@@ -86,25 +88,25 @@ void Atom::ReadAtomGaussString(std::string gauss_string_){
        coefs_actual_shell.push_back(coeff_actual);
        coefs_sp_actual_shell.push_back(0);
      }
-     alpha_exp.push_back(alpha_actual_shell);
-     coefs_num.push_back(coefs_actual_shell);
-     coefs_sp_num.push_back(coefs_sp_actual_shell);
+     alpha_exp_.push_back(alpha_actual_shell);
+     coefs_num_.push_back(coefs_actual_shell);
+     coefs_sp_num_.push_back(coefs_sp_actual_shell);
    }
-  }  
+   }  
 // Assing values to the elemets of the class for the object X  
-   atomic_symbol_=symbol;
-//   atomic_number_=NameToAtomicNumber(atomic_symbol_);
-   charge_=charge;   
-   orbital_type_=orbital_type;
-   num_shells_=(int)orbital_type.size();
+//   atomic_symbol_=symbol;
+   atomic_number_= NameToAtomicNumber(atomic_symbol_);
+//   charge_=charge;   
+//   orbital_type_=orbital_type;
+   num_shells_=(int)orbital_type_.size();
 //   for(unsigned long i=0; i< orbital_type_.size(); i++){
 //   num_orbital_type_[i]= TypeOrbitalToNumber(orbital_type_[i]);
-//   }
+//  }
 //   occ_numbers_= OccupationNumberAssign(orbital_type_,atomic_number_);
-   num_gauss_=num_gauss;
-   alpha_exp_=alpha_exp;
-   coefs_num_=coefs_num;
-   coefs_sp_num_=coefs_sp_num;
+//   num_gauss_=num_gauss;
+//   alpha_exp_=alpha_exp;
+//   coefs_num_=coefs_num;
+//   coefs_sp_num_=coefs_sp_num;
 
 }
 
@@ -266,8 +268,8 @@ int Atom::TypeOrbitalToNumber(std::string shellType){
      else if (shellType == "D"){return 3;}
      else if (shellType == "F"){return 4;}
      else if (shellType == "G"){return 5;}
+     else return 0;
 }
-
 //---------------------------------------------------------//
 //---------------------------------------------------------//
 // Function OccupationNumberAssign takes from the screen 
@@ -275,14 +277,15 @@ int Atom::TypeOrbitalToNumber(std::string shellType){
 //---------------------------------------------------------//
 // Definition
 //---------------------------------------------------------//
-std::vector<double> Atom::OccupationNumberAssign(std::vector<std::string> orbital_type, int atom_number){
+std::vector<double> Atom::OccupationNumberAssign(std::vector<std::string> orbital_type, int atomic_number_){
    
-   std::vector<std::string> orb_type=orbital_type;
-   std::vector<double> occ_numbers(orbital_type.size());
-   double n_elect=(double)atom_number;
 
-   for(unsigned long i=0; i < orb_type.size(); i++){
-     occ_numbers.push_back(0.0);
+   std::vector<std::string> orbital_type_=orbital_type;
+//   std::vector<double> occ_numbers(orbital_type_.size());
+   double n_elect=(double)atomic_number_;
+
+   for(unsigned long i=0; i < orbital_type_.size(); i++){
+     occ_numbers_.push_back(0.0);
    }
 /*   for(unsigned long i=0; i < orb_type.size(); i++){
     if(orb_type[i]=="S"){
@@ -336,7 +339,7 @@ std::vector<double> Atom::OccupationNumberAssign(std::vector<std::string> orbita
     else{occ_numbers.push_back(0.0);
     }
     }*/
-   occ_numbers_=occ_numbers;
+//   occ_numbers_=occ_numbers;
    return occ_numbers_;
 }
 
@@ -379,6 +382,18 @@ std::string Atom::PrintAtomCrystString(){
    }
    crystal_string_=crystal_format.str();
    return crystal_string_;
+}
+
+void Atom::PrintObjectVariables(){
+
+  std::cout << "We get: " << "\n"
+            << atomic_symbol_ << " " << charge_ << "\n " 
+            << atomic_number_ << " " 
+            << num_shells_ << "\n"
+            << alpha_exp_.size() << " " << coefs_num_.size() << "\n"
+            << coefs_sp_num_.size() << " " << num_shells_ << std::endl;
+   std::cout  << "The vectors cointains: " << std::endl;
+     std::cout << alpha_exp_[0][0] << std::endl;
 }
 //---------------------------------------------------------//
 //---------------------------------------------------------//

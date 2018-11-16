@@ -15,7 +15,9 @@ public:
 // Methods (declaration)
    void ReadAtomGaussString(std::string);
    std::string PrintAtomCrystString();
-   int NameToAtomicNumber(std::string);
+// Funtion to check the object
+   void PrintObjectVariables();
+
 private:
 // Variables 
    std::string atomic_symbol_;
@@ -32,7 +34,7 @@ private:
    int num_shells_; 
    std::vector<double> occ_numbers_;
 // Methods 
-//   int NameToAtomicNumber(std::string);
+   int NameToAtomicNumber(std::string);
    int TypeOrbitalToNumber(std::string);
    std::vector<double> OccupationNumberAssign(std::vector<std::string>, int);
 
