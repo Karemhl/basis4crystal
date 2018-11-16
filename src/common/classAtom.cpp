@@ -28,18 +28,8 @@
 void Atom::ReadAtomGaussString(std::string gauss_string_){
 // Variables to read
   std::string gauss_string=gauss_string_;
-//  std::string symbol;
-//  int charge;
-//  std::vector<std::string> orbital_type;
-//  std::vector<int> num_gauss;
-//  std::vector<std::vector<double>> alpha_exp;
-//  std::vector<std::vector<double>> coefs_num;
-//  std::vector<std::vector<double>> coefs_sp_num;
-//  std::vector<double> occ_numbers_v;
-
 //---------------------------------------------------------//
    std::istringstream gauss_format(gauss_string);
-//   gauss_format.ignore(4,'\n');
 //---------------------------------------------------------//
    gauss_format.seekg(0, gauss_format.cur) >> atomic_symbol_;
 //---------------------------------------------------------//
@@ -94,19 +84,9 @@ void Atom::ReadAtomGaussString(std::string gauss_string_){
    }
    }  
 // Assing values to the elemets of the class for the object X  
-//   atomic_symbol_=symbol;
    atomic_number_= NameToAtomicNumber(atomic_symbol_);
-//   charge_=charge;   
-//   orbital_type_=orbital_type;
    num_shells_=(int)orbital_type_.size();
-//   for(unsigned long i=0; i< orbital_type_.size(); i++){
-//   num_orbital_type_[i]= TypeOrbitalToNumber(orbital_type_[i]);
-//  }
    occ_numbers_= OccupationNumberAssign();
-//   num_gauss_=num_gauss;
-//   alpha_exp_=alpha_exp;
-//   coefs_num_=coefs_num;
-//   coefs_sp_num_=coefs_sp_num;
 
 }
 
@@ -353,28 +333,32 @@ std::vector<double> Atom::OccupationNumberAssign(){
 std::string Atom::PrintAtomCrystString(){
    std::string crystal_string;
    std::ostringstream crystal_format;
+// Defining prescition
+ 
    crystal_format << atomic_number_ << " "
              << num_shells_ << std::endl;
 
    for(unsigned long i=0; i < orbital_type_.size(); i++){
     crystal_format << "0" << " " << TypeOrbitalToNumber(orbital_type_[i])
+                   << std::fixed << std::setprecision(1)
                    << " " << num_gauss_[i]
                    << " " << occ_numbers_[i]
-                   << " " << "1.0" << std::endl;
+                   << " " << cryst_contrac_factor_ << std::endl;
     if(orbital_type_[i]=="SP"){
 
      for(int j=0; j < num_gauss_[i]; j++){
       crystal_format << std::fixed << std::setprecision(7) 
                      << "    " << alpha_exp_[i][j]
                      << " "    << coefs_num_[i][j]
-                     << " "    << coefs_sp_num_[i][j] << std::endl;
+                     << " "    << coefs_sp_num_[i][j] << std::endl; 
      }
     }
     else{
 
      for(int j=0; j < num_gauss_[i]; j++){
-      crystal_format <<  "    " << alpha_exp_[i][j]
-               << " "    << coefs_num_[i][j] <<  std::endl;
+      crystal_format << std::fixed << std::setprecision(7)
+                     <<  "    " << alpha_exp_[i][j]
+                     << " "    << coefs_num_[i][j] <<  std::endl;
      }
     }
    }
