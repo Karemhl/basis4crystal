@@ -24,7 +24,7 @@ endif
 
 # COMPILERS OPTIONS
 ifneq ($(DARWIN),)
-  CXX          := g++-mp-4.9
+  CXX          := g++
 else
   CXX          := g++
 endif

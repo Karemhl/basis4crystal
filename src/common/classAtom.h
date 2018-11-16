@@ -12,26 +12,29 @@
 //---------------------------------------------------------//
 class Atom{
 public:
-// Methods (definitions)
-   void ReadAtomGausString(std::string);
+// Methods (declaration)
+   void ReadAtomGaussString(std::string);
+   std::string PrintAtomCrystString();
    int NameToAtomicNumber(std::string);
-   int TypeOrbitalToNumber(std::string);
-   void OccupationNumberAssign();
-   void PrintAtomCrystString();
-
 private:
-// Variables
+// Variables 
    std::string atomic_symbol_;
    int atomic_number_;
-   int gauss_paramter_{0};
+   int charge_;
+   int gauss_parameter_{0};
    std::vector<std::string> orbital_type_;
    std::vector<int> num_orbital_type_;
    std::vector<int> num_gauss_;
-   int cryst_contrac_factor_{1.0};
-   std:::vector<std::vector<double>> alpha_exp_;
-   std:::vector<std::vector<double>> coefs_num_;
+   double cryst_contrac_factor_{1.0};
+   std::vector<std::vector<double>> alpha_exp_;
+   std::vector<std::vector<double>> coefs_num_;
+   std::vector<std::vector<double>> coefs_sp_num_;
    int num_shells_; 
-   double occupation_number_;
+   std::vector<double> occ_numbers_;
+// Methods 
+//   int NameToAtomicNumber(std::string);
+   int TypeOrbitalToNumber(std::string);
+   std::vector<double> OccupationNumberAssign(std::vector<std::string>, int);
 
 };
 //---------------------------------------------------------//
