@@ -334,6 +334,8 @@ std::string Atom::PrintAtomCrystString(){
    std::string crystal_string;
    std::ostringstream crystal_format;
 // Defining prescition
+
+//std::cout.setf(std::ios_base::adjustfield, std::ios_base::left);
  
    crystal_format << atomic_number_ << " "
              << num_shells_ << std::endl;
@@ -344,21 +346,22 @@ std::string Atom::PrintAtomCrystString(){
                    << " " << num_gauss_[i]
                    << " " << occ_numbers_[i]
                    << " " << cryst_contrac_factor_ << std::endl;
+    
     if(orbital_type_[i]=="SP"){
 
      for(int j=0; j < num_gauss_[i]; j++){
       crystal_format << std::fixed << std::setprecision(7) 
-                     << "    " << alpha_exp_[i][j]
-                     << " "    << coefs_num_[i][j]
-                     << " "    << coefs_sp_num_[i][j] << std::endl; 
+          << std::right << std::setw(15)  << alpha_exp_[i][j]
+          << std::right << std::setw(12)  << coefs_num_[i][j]
+          << std::right << std::setw(12)  << coefs_sp_num_[i][j] << std::endl; 
      }
     }
     else{
 
      for(int j=0; j < num_gauss_[i]; j++){
       crystal_format << std::fixed << std::setprecision(7)
-                     <<  "    " << alpha_exp_[i][j]
-                     << " "    << coefs_num_[i][j] <<  std::endl;
+                     << std::right << std::setw(15) << alpha_exp_[i][j]
+                     << std::right << std::setw(12) << coefs_num_[i][j] <<  std::endl;
      }
     }
    }
