@@ -18,7 +18,7 @@ int main (int argc, char *argv[])
 	}
 
 	string inputfilename=argv[1];
-	string outputfilename=inputfilename.substr(0, inputfilename.find(".", 0)) +".cryb";
+	string outputfilename=inputfilename.substr(0, inputfilename.find(".", 0)) +".dat";
 
 	ReadWriteFiles readWriteFiles;
 

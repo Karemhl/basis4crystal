@@ -53,7 +53,7 @@ COMMONSTATICLIBNAME=$(shell cd ../..; pwd | sed -e 's;\(.*\)/\(.*\);\2;')
 COMMONHEADERS=$(shell ls ../common/*.h)
 COMMONSOURCES=$(shell ls ../common/*.cpp)
 STATICLIB=$(TOP)/../common/lib$(COMMONSTATICLIBNAME).a
-TESTEXECS=$(patsubst %.cc,%.x,$(wildcard *.cc))
+TESTEXECS=$(patsubst %.cc,%,$(wildcard *.cc))
 
 # -L: FOLDER LIBRARY
 	LFLAGS+=-L$(TOP)/../common/
@@ -78,7 +78,7 @@ $(CCOBJS): %.o: %.cc
 	$(info compiling: $@)
 	@$(CXX) $(CXXFLAGS) -c $<  -o $@  $(IFLAGS) 
 
-$(TESTEXECS): %.x: %.o $(STATICLIB) $(CPPOBJS) $(SOURCES) $(HEADERS) $(COMMONHEADERS) $(COMMONSOURCES)
+$(TESTEXECS): %: %.o $(STATICLIB) $(CPPOBJS) $(SOURCES) $(HEADERS) $(COMMONHEADERS) $(COMMONSOURCES)
 	$(info compiling: $@)
 	$(CXX) $(LFLAGS) $< $(CPPOBJS) $(lLIBS) -o $@
 
