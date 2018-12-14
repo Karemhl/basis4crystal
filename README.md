@@ -26,7 +26,7 @@ or other suitable compiler on your computer.
 1. In the terminal, at the adequate path in your computer, 
    copy this repository with:
    > git clone  https://github.com/Karemhl/basis4crystal.git
-2. To compile the program type
+2. To compile the program go to src folder and type
    > make
 3. To install the program type 
    > sudo make install
