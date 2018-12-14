@@ -38,7 +38,9 @@ screen will be given to fix it and make a successful compilation.
 
 1. Go to your local repository where ´translatebasis4crystal´ is.
 2. In the terminal, type in
-    >./basis4crystal
+	
+	>./basis4crystal
+
    and then type in the name of the file (or the direction and 
    name of the file).
 3. The Crystal format will be shown on screen and will be saved
