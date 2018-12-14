@@ -20,14 +20,16 @@ Version 1.0 (12/12/2018)
 * The occupation numbers (the fourth column in the second line for the 
   Crystal basis format) which is set to 0.0, should be written by hand.
 
-## Compilation 
+## Install
  
 1. In the terminal, in the desired direcction in your computer, 
-   copy the remote repository from:
-   [basis4crystal](https://github.com/Karemhl/basis4crystal).
-2. To compile the files type in
+   copy this repository with:
+   > git clone  https://github.com/Karemhl/basis4crystal.git
+2. To compile the program type in 
    > make
-3. Now the executable:`basis4crystal` is ready to be used.
+3. To install the program type in 
+	> sudo make install
+4. Now the executable:`basis4crystal` is ready to be used.
 
 Note: In case of problems of compilation, enought information on 
 screen will be given to fix it and make a successful compilation.
