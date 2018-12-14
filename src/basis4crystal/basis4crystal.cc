@@ -6,19 +6,17 @@ using std::cerr;
 using std::string;
 #include <vector>
 using std::vector;
+#include "optflag.h"
 #include "readwritefiles.h"
 #include "classAtom.h"
 
 int main (int argc, char *argv[])
 {
 
-	if(argc < 2){
-		cout << "No input file" << endl;
-		return EXIT_FAILURE;
-	}
+   OptFlags optflags; optflags.getOptions(argc,argv);
 
-	string inputfilename=argv[1];
-	string outputfilename=inputfilename.substr(0, inputfilename.find(".", 0)) +".dat";
+	string inputfilename=argv[argc-1];
+	string outputfilename=inputfilename.substr(0, inputfilename.find(".", 0)) +"_crystal_basis.dat";
 
 	ReadWriteFiles readWriteFiles;
 
@@ -34,7 +32,7 @@ int main (int argc, char *argv[])
 			atom_string_Crystal[i] = atoms[i].PrintAtomCrystString();
 		}
 
-		bool output_fine = readWriteFiles.PrintAndSaveOutput(atom_string_Crystal,outputfilename);
+		bool output_fine = readWriteFiles.PrintAndSaveOutput(atom_string_Crystal,outputfilename,optflags.save_output_basis);
    }
 
 	return EXIT_SUCCESS;
