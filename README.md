@@ -6,55 +6,58 @@ format to atom basis sets in Crystal format.
 ## Features
 Version 1.0 (12/12/2018)
 
-* The program is written in C++, for compilation you must have GCC, CLang 
-  or other suitable compilator on your computer.
-* The program requires an input file with information in Gaussian format
-  basis set for one or many atoms. The input file can be taken directly 
+* The program is written in C++, to compile it you must install GCC, CLang 
+or other suitable compiler on your computer.
+* The program requires an input file that contains information of
+  basis set, for one or many atoms,in Gaussian format.
+  The input file can be taken directly 
   from the Basis Set Exchange page [EMSL](https://bse.pnl.gov/bse/portal), 
-  specifiying the data in GAUSSIAN94 format and copying the result in a 
-  file with any kind of extension.
+  but requesting the data to be in GAUSSIAN94 format. The data can be copied into a 
+  file of any extension.
 * The program will read the input file and translate the basis set 
   information into a Crystal basis set format. The result will be shown 
-  on screen; using the flag -s the information will be saved in a file 
-  with _basis_crystal.dat append to the file name. 
+  on screen, however using the flag -s the information will be saved into a file 
+  with _basis_crystal.dat appended to the file name. 
 * The occupation numbers (the fourth column in the second line for the 
   Crystal basis format) which is set to 0.0, should be written by hand.
 
 ## Install
  
-1. In the terminal, in the desired direcction in your computer, 
+1. In the terminal, at the adequate path in your computer, 
    copy this repository with:
    > git clone  https://github.com/Karemhl/basis4crystal.git
-2. To compile the program type in 
+2. To compile the program type
    > make
-3. To install the program type in 
+3. To install the program type 
 	> sudo make install
-4. Now the executable:`basis4crystal` is ready to be used.
+4. This generates the executable `basis4crystal`, which is ready to be used.
 
-Note: In case of problems of compilation, enought information on 
-screen will be given to fix it and make a successful compilation.
+Note: If problems during the compilation arise, information will be
+printed on screen. This should provide enough details to fix
+the problems and to render a successful compilation.
 
 ## Running basis4crystal
 
 - Unix/Linux/MacOS
 
 1. Go to your local repository where ´translatebasis4crystal´ is.
-2. In the terminal, type in
-    >./basis4crystal
-   and then type in the name of the file (or the direction and 
+2. In the terminal, type
+    >./basis4crystal basis_set_gaussian.dat
+   and then type in the file name (or the path and 
    name of the file).
-3. The Crystal format will be shown on screen and will be saved
-   in the file with extension crysb.
+3. The basis information in Crystal format will be shown on screen and, if you choice, will be saved
+   in the file with _basis_crystal.dat appended to the file name.
 
 ## About the Crystal basis format
 
-The program will give the Crystal format basis set and/or the 
-output file that contains the information to be used in Crystal program 
-[CRYSTAL](http://www.crystal.unito.it). Therefore this basis 
-set format can be used to write the input files where the basis 
-set for atoms is desired to be explicit specified. 
-Remember that this version doesn't put the occupation numbers, 
-so they must be written by hand for every atom.
+The program will re-write basis set information to the Crystal format.
+Optionally, this information will be saved into
+an output file that contains the information ready to be used in the Crystal program 
+[CRYSTAL](http://www.crystal.unito.it). 
+This basis set format can be used to write the input files where the basis 
+set for atoms is desired to be explicitly specified. 
+Remember that this version doesn't provide the occupation numbers, 
+but they must be written by hand for every atom.
 
 For more information:
  - luis.alfredo.nu@gmail.com 
