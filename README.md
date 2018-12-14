@@ -37,6 +37,7 @@ screen will be given to fix it and make a successful compilation.
 ## Running basis4crystal
 
 - Unix/Linux/MacOS
+
 1. Go to your local repository where ´translatebasis4crystal´ is.
 2. In the terminal, type in
     >./basis4crystal
