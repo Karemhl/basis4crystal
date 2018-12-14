@@ -42,7 +42,7 @@ the problems and to render a successful compilation.
 
 1. Go to your local repository where ´translatebasis4crystal´ is.
 2. In the terminal, type
-   >./basis4crystal basis_set_gaussian.dat
+   > basis4crystal basis_set_gaussian.dat
 3. The basis information in Crystal format will be shown on screen and, if you choice, will be saved
    in the file with _basis_crystal.dat appended to the file name.
 
