@@ -21,6 +21,7 @@
 *.owo
 
 #specific files
+src/basis4crystal/basis4crystal
 backup/test/main
 backup/gui/test
 
