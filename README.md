@@ -15,8 +15,8 @@ Version 1.0 (12/12/2018)
   file with any kind of extension.
 * The program will read the input file and translate the basis set 
   information into a Crystal basis set format. The result will be shown 
-  on screen and will be saved in a file with the name of the input file 
-  with extension: .dat 
+  on screen; using the flag -s the information will be saved in a file 
+  with _basis_crystal.dat append to the file name. 
 * The occupation numbers (the fourth column in the second line for the 
   Crystal basis format) which is set to 0.0, should be written by hand.
 
@@ -45,9 +45,8 @@ screen will be given to fix it and make a successful compilation.
 
 ## About the Crystal basis format
 
-The program will give an output file with extension crysb that
-contains the information of the basis set for an atom or a set 
-of atoms in the format to be used in Crystal program 
+The program will give the Crystal format basis set and/or the 
+output file that contains the information to be used in Crystal program 
 [CRYSTAL](http://www.crystal.unito.it). Therefore this basis 
 set format can be used to write the input files where the basis 
 set for atoms is desired to be explicit specified. 
