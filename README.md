@@ -26,7 +26,7 @@ Version 1.0 (12/12/2018)
    copy the remote repository from:
    [basis4crystal](https://github.com/Karemhl/basis4crystal).
 2. To compile the files type in
-   > make
+   > make install
 3. Now the executable:`basis4crystal` is ready to be used.
 
 Note: In case of problems of compilation, enought information on 
@@ -35,6 +35,7 @@ screen will be given to fix it and make a successful compilation.
 ## Running basis4crystal
 
 - Unix/Linux/MacOS
+
 1. Go to your local repository where ´translatebasis4crystal´ is.
 2. In the terminal, type in
     >./basis4crystal
