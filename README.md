@@ -29,7 +29,7 @@ or other suitable compiler on your computer.
 2. To compile the program type
    > make
 3. To install the program type 
-	> sudo make install
+   > sudo make install
 4. This generates the executable `basis4crystal`, which is ready to be used.
 
 Note: If problems during the compilation arise, information will be
@@ -40,11 +40,9 @@ the problems and to render a successful compilation.
 
 - Unix/Linux/MacOS
 
-1. Go to your local repository where Â´translatebasis4crystalÂ´ is.
+1. Go to your local repository where ´translatebasis4crystal´ is.
 2. In the terminal, type
-    >./basis4crystal basis_set_gaussian.dat
-   and then type in the file name (or the path and 
-   name of the file).
+   >./basis4crystal basis_set_gaussian.dat
 3. The basis information in Crystal format will be shown on screen and, if you choice, will be saved
    in the file with _basis_crystal.dat appended to the file name.
 
